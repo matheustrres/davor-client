@@ -37,7 +37,15 @@
       "warn",
       {
         "newlinesBetween": "always",
-        "groups": ["/^node/", "module", "absolute", ["sibling"]],
+        "groups": [
+					"/^node/",
+					"module",
+					"absolute",
+					"/^@/structs/",
+					"/^@/types/",
+					"/^@/utils/",
+					["sibling"]
+				],
         "alphabetize": {
           "order": "asc",
           "ignoreCase": false
