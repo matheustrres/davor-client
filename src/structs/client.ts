@@ -2,9 +2,11 @@ import { Client, type ClientEvents } from 'discord.js';
 
 import { loadResources } from '@/utils/load-resources';
 
+import type Command from './command';
 import type DiscordEvent from './event';
 
 export default class DavorClient extends Client {
+	commands: Command[];
 	events: DiscordEvent[];
 
 	constructor() {
@@ -17,8 +19,20 @@ export default class DavorClient extends Client {
 		});
 
 		this.events = [];
+		this.commands = [];
 
+		this.#loadCommands();
 		this.#loadEvents();
+	}
+
+	#loadCommands(): void {
+		const commands = loadResources<Command>({
+			client: this,
+			resource: this.commands,
+			path: 'commands',
+		});
+
+		console.info(`✔️ ${commands.length} commands loaded.`);
 	}
 
 	#loadEvents(): void {
@@ -39,6 +53,8 @@ export default class DavorClient extends Client {
 				);
 			}
 		}
+
+		console.info(`✔️ ${events.length} events loaded.`);
 	}
 
 	async login(token?: string | undefined): Promise<string> {
