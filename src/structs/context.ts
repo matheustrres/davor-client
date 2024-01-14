@@ -8,13 +8,8 @@ import {
 	type InteractionReplyOptions,
 } from 'discord.js';
 
-import type DavorClient from './client';
-
 export default class Context {
-	constructor(
-		private readonly client: DavorClient,
-		private readonly interaction: ChatInputCommandInteraction,
-	) {}
+	constructor(public readonly interaction: ChatInputCommandInteraction) {}
 
 	get channel(): TextBasedChannel | null {
 		return this.interaction.channel;

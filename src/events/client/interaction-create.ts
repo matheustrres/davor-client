@@ -67,7 +67,7 @@ export default class InteractionCreateEvent extends DiscordEvent {
 					}
 				}
 
-				const context = new Context(this.client, interaction);
+				const context = new Context(interaction);
 
 				cmd.run(context);
 			}
