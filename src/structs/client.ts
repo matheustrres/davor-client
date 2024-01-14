@@ -32,7 +32,7 @@ export default class DavorClient extends Client {
 			path: 'commands',
 		});
 
-		console.info(`✔️ ${commands.length} commands loaded.`);
+		console.info(`${commands.length} commands loaded.`);
 	}
 
 	#loadEvents(): void {
@@ -54,7 +54,23 @@ export default class DavorClient extends Client {
 			}
 		}
 
-		console.info(`✔️ ${events.length} events loaded.`);
+		console.info(`${events.length} events loaded.`);
+	}
+
+	async loadSlashCommands(): Promise<void> {
+		if (!this.commands.length) {
+			throw new Error('No commands have been loaded yet.');
+		}
+
+		try {
+			await this.guilds.cache
+				.get(process.env.DISCORD_CLIENT_GUILD_ID)
+				?.commands.set(this.commands);
+		} catch (error) {
+			console.error(
+				`Error while registering Application (/) commands: \n${error}`,
+			);
+		}
 	}
 
 	async login(token?: string | undefined): Promise<string> {

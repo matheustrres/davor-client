@@ -7,6 +7,8 @@ export default class ReadyEvent extends DiscordEvent {
 	}
 
 	async run(): Promise<void> {
+		await this.client.loadSlashCommands();
+
 		console.log(
 			`🚀 ${this.client.user?.tag} successfully connected to Discord API.`,
 		);
