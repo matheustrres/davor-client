@@ -1,9 +1,9 @@
 import { Client, type ClientEvents } from 'discord.js';
 
-import { loadResources } from '@/utils/load-resources';
-
 import type Command from './command';
 import type DiscordEvent from './event';
+
+import { loadResources } from '@/utils/load-resources';
 
 export default class DavorClient extends Client {
 	commands: Command[];

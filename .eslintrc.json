@@ -1,56 +1,53 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint/eslint-plugin",
-    "eslint-plugin-import-helpers"
-  ],
-  "env": {
-    "node": true
-  },
-  "extends": ["plugin:@typescript-eslint/recommended"],
-  "root": true,
-  "ignorePatterns": [".eslintrc.js"],
-  "rules": {
-    "no-dupe-class-members": "error",
-    "no-duplicate-imports": "error",
-    "no-extra-semi": "warn",
-    "no-mixed-spaces-and-tabs": "off",
-    "no-tabs": "off",
-    "space-before-function-paren": [
-      "warn",
-      {
-        "anonymous": "never",
-        "named": "never",
-        "asyncArrow": "always"
-      }
-    ],
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/consistent-type-imports": [
-      "error",
-      {
-        "disallowTypeAnnotations": true,
-        "fixStyle": "inline-type-imports",
-        "prefer": "type-imports"
-      }
-    ],
-    "import-helpers/order-imports": [
-      "warn",
-      {
-        "newlinesBetween": "always",
-        "groups": [
+	"parser": "@typescript-eslint/parser",
+	"env": {
+		"node": true
+	},
+	"plugins": [
+		"@typescript-eslint/eslint-plugin",
+		"eslint-plugin-import-helpers"
+	],
+	"extends": ["plugin:@typescript-eslint/recommended"],
+	"root": true,
+	"ignorePatterns": [".eslintrc.js"],
+	"rules": {
+		"no-dupe-class-members": "error",
+		"no-duplicate-imports": "error",
+		"no-extra-semi": "warn",
+		"no-mixed-spaces-and-tabs": "off",
+		"no-tabs": "off",
+		"@typescript-eslint/no-unused-vars": "off",
+		"import-helpers/order-imports": [
+			"warn",
+			{
+				"newlinesBetween": "always",
+				"groups": [
 					"/^node/",
 					"module",
 					"absolute",
+					"index",
+					"sibling",
+					"parent",
+					"/^@/cmds/",
+					"/^@/evts/",
 					"/^@/structs/",
 					"/^@/types/",
-					"/^@/utils/",
-					["sibling"]
+					"/^@/utils/"
 				],
-        "alphabetize": {
-          "order": "asc",
-          "ignoreCase": false
-        }
-      }
-    ]
-  }
+				"alphabetize": {
+					"order": "asc",
+					"ignoreCase": false
+				}
+			}
+		],
+		"@typescript-eslint/consistent-type-imports": [
+			"warn",
+			{
+				"disallowTypeAnnotations": true,
+				"fixStyle": "inline-type-imports",
+				"prefer": "type-imports"
+			}
+		],
+		"@typescript-eslint/no-explicit-any": "off"
+	}
 }
