@@ -1,8 +1,10 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./dist",
-    "declaration": true,
-    "sourceMap": true
-  }
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"lib": ["es2023", "DOM"],
+		"declaration": true,
+		"sourceMap": true,
+		"removeComments": false
+	},
+	"exclude": ["./node_modules", "**/*.spec.ts"]
 }
