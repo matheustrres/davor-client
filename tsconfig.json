@@ -9,7 +9,7 @@
 		"noPropertyAccessFromIndexSignature": true,
 		"noUnusedLocals": true,
 		"paths": {
-			"@/cmds/*": ["./src/commands/*"],
+			"@/cmds/*": ["src/cmds/*"],
 			"@/evts/*": ["./src/events/*"],
 			"@/structs/*": ["./src/structs/*"],
 			"@/types/*": ["./src/types/*"],

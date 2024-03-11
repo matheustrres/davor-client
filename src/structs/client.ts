@@ -29,7 +29,7 @@ export default class DavorClient extends Client {
 		const commands = loadResources<Command>({
 			client: this,
 			resource: this.commands,
-			path: 'commands',
+			path: 'cmds',
 		});
 
 		console.info(`${commands.length} commands loaded.`);
