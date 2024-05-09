@@ -14,7 +14,6 @@
   "explorer.compactFolders": false,
   // workbench
   "workbench.editor.enablePreview": false,
-  "workbench.colorTheme": "Default Dark Modern",
   // prettier
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "prettier.enable": true,
