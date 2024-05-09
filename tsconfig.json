@@ -1,28 +1,22 @@
 {
+	"extends": "@tsconfig/node-lts/tsconfig.json",
 	"compilerOptions": {
-		"allowSyntheticDefaultImports": true,
-		"target": "es2022",
-		"module": "node16",
+		"noPropertyAccessFromIndexSignature": true,
 		"baseUrl": "./",
 		"outDir": "./dist",
-		"typeRoots": ["node_modules/@types"],
-		"noPropertyAccessFromIndexSignature": true,
 		"noUnusedLocals": true,
 		"paths": {
-			"@/cmds/*": ["src/cmds/*"],
-			"@/evts/*": ["./src/events/*"],
-			"@/structs/*": ["./src/structs/*"],
-			"@/types/*": ["./src/types/*"],
-			"@/utils/*": ["./src/utils/*"]
+			"@/*": ["./src/*"],
+			"#/*": ["./tests/*"]
 		},
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
 		"noUnusedParameters": true,
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
-		"strict": true,
 		"resolveJsonModule": true,
 		"useUnknownInCatchVariables": true,
-		"skipLibCheck": true,
-		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
 		"noUncheckedIndexedAccess": true
 	},
 	"exclude": ["./node_modules", "./dist"]
