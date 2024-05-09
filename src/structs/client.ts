@@ -2,10 +2,13 @@ import { Client, type ClientEvents } from 'discord.js';
 
 import type Command from './command';
 import type DiscordEvent from './event';
+import { Logger } from './logger';
 
 import { loadResources } from '@/utils/load-resources';
 
 export default class DavorClient extends Client {
+	#logger = new Logger(DavorClient.name);
+
 	commands: Command[];
 	events: DiscordEvent[];
 
@@ -32,7 +35,7 @@ export default class DavorClient extends Client {
 			path: 'cmds',
 		});
 
-		console.info(`${commands.length} commands loaded.`);
+		this.#logger.info(`${commands.length} commands loaded.`);
 	}
 
 	#loadEvents(): void {
@@ -54,7 +57,7 @@ export default class DavorClient extends Client {
 			}
 		}
 
-		console.info(`${events.length} events loaded.`);
+		this.#logger.info(`${events.length} events loaded.`);
 	}
 
 	async loadSlashCommands(): Promise<void> {
@@ -67,7 +70,7 @@ export default class DavorClient extends Client {
 				.get(process.env.DISCORD_CLIENT_GUILD_ID)
 				?.commands.set(this.commands);
 		} catch (error) {
-			console.error(
+			this.#logger.error(
 				`Error while registering Application (/) commands: \n${error}`,
 			);
 		}

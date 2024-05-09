@@ -9,8 +9,11 @@ import {
 import type DavorClient from '@/structs/client';
 import Command from '@/structs/command';
 import type Context from '@/structs/context';
+import { Logger } from '@/structs/logger';
 
 export default class EvalCommand extends Command {
+	readonly #logger = new Logger(EvalCommand.name);
+
 	constructor(client: DavorClient) {
 		super(client, {
 			name: 'eval',
@@ -73,7 +76,7 @@ export default class EvalCommand extends Command {
 			result = codeBlock(formattedResult);
 
 			if (result.length >= 4000) {
-				console.info('Result from eval: ', result);
+				this.#logger.info(`Result from eval: ${result}`);
 
 				response = {
 					ephemeral: true,
@@ -86,7 +89,7 @@ export default class EvalCommand extends Command {
 				};
 			}
 		} catch (error) {
-			console.error('An error has been found: ', error);
+			this.#logger.error(`An error has been found: ${error}`);
 			result = (error as Error).message;
 		}
 
