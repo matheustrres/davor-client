@@ -29,7 +29,7 @@
 					"sibling",
 					"parent",
 					"/^@/cmds/",
-					"/^@/evts/",
+					"/^@/events/",
 					"/^@/structs/",
 					"/^@/types/",
 					"/^@/utils/"
