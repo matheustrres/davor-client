@@ -7,4 +7,5 @@ export type Environment = {
 	CLIENT_TOKEN: string;
 	CLIENT_GUILD_ID: string;
 	CLIENT_OWNER_ID: string;
+	DATABASE_URL: string;
 };

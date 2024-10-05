@@ -6,9 +6,9 @@ import {
 import type DavorClient from './client';
 import type CommandContext from './context';
 
-type CommandCategory = 'Dev' | 'Info' | 'Mod' | 'Others';
+import { type CommandCategory } from '@/core/consts/cmd-category';
 
-type CommmandPermissions = {
+type CommandPermissions = {
 	botPerms?: PermissionResolvable[];
 	memberPerms?: PermissionResolvable[];
 };
@@ -18,7 +18,7 @@ type CommandProps = {
 	description: string;
 	category: CommandCategory;
 	options?: ApplicationCommandOptionData[];
-	permissions?: CommmandPermissions;
+	permissions?: CommandPermissions;
 };
 
 export default abstract class Command {
@@ -51,7 +51,7 @@ export default abstract class Command {
 		return this.props.options;
 	}
 
-	get permissions(): CommmandPermissions | undefined {
+	get permissions(): CommandPermissions | undefined {
 		return this.props.permissions;
 	}
 

@@ -6,6 +6,8 @@ import { Logger } from './logger';
 
 import { Core } from '@/core';
 
+import { ClientDb } from '@/models/client';
+
 import { loadResources } from '@/utils/load-resources';
 
 export default class DavorClient extends Client {
@@ -13,6 +15,7 @@ export default class DavorClient extends Client {
 
 	commands: Command[];
 	events: DiscordEvent[];
+	clientDb: typeof ClientDb;
 
 	constructor() {
 		super({
@@ -25,6 +28,7 @@ export default class DavorClient extends Client {
 
 		this.events = [];
 		this.commands = [];
+		this.clientDb = ClientDb;
 
 		this.#loadCommands();
 		this.#loadEvents();
