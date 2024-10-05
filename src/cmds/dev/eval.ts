@@ -40,11 +40,13 @@ export default class EvalCommand extends Command {
 
 	#formatText(text: string): string {
 		if (typeof text === 'string') {
+			const token = Core.getEnvOrThrow('CLIENT_TOKEN');
+
 			text
 				.slice(0, 3000)
 				.replace(/`/g, `\`${String.fromCharCode(8203)}`)
 				.replace(/@/g, `@${String.fromCharCode(8203)}`)
-				.replace(new RegExp(Core.getEnvOrThrow('CLIENT_TOKEN'), 'gi'), '****');
+				.replace(new RegExp(token, 'gi'), '****');
 		}
 
 		return text;

@@ -68,9 +68,9 @@ export default class DavorClient extends Client {
 		}
 
 		try {
-			await this.guilds.cache
-				.get(Core.getEnvOrThrow('CLIENT_GUILD_ID'))
-				?.commands.set(this.commands);
+			const guildId = Core.getEnvOrThrow('CLIENT_GUILD_ID');
+
+			await this.guilds.cache.get(guildId)?.commands.set(this.commands);
 		} catch (error) {
 			this.#logger.error(
 				`Error while registering Application (/) commands: \n${error}`,

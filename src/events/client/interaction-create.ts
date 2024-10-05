@@ -26,11 +26,9 @@ export default class InteractionCreateEvent extends DiscordEvent {
 
 			if (command) {
 				const { category, permissions } = command;
+				const ownerId = Core.getEnvOrThrow('CLIENT_OWNER_ID');
 
-				if (
-					category === 'Dev' &&
-					i.user.id !== Core.getEnvOrThrow('CLIENT_OWNER_ID')
-				) {
+				if (category === 'Dev' && i.user.id !== ownerId) {
 					return i.reply({
 						ephemeral: true,
 						content: 'This command is restricted.',
