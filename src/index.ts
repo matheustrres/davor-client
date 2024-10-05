@@ -1,3 +1,5 @@
+import './utils/module-alias';
+
 import DavorClient from './structs/client';
 
 export default (async () => {
