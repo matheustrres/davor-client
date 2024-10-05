@@ -4,6 +4,8 @@ import type Command from './command';
 import type DiscordEvent from './event';
 import { Logger } from './logger';
 
+import { Core } from '@/core';
+
 import { loadResources } from '@/utils/load-resources';
 
 export default class DavorClient extends Client {
@@ -67,7 +69,7 @@ export default class DavorClient extends Client {
 
 		try {
 			await this.guilds.cache
-				.get(process.env.DISCORD_CLIENT_GUILD_ID)
+				.get(Core.getEnvOrThrow('CLIENT_GUILD_ID'))
 				?.commands.set(this.commands);
 		} catch (error) {
 			this.#logger.error(

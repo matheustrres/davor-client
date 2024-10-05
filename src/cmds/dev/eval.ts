@@ -6,6 +6,8 @@ import {
 	type InteractionReplyOptions,
 } from 'discord.js';
 
+import { Core } from '@/core';
+
 import type DavorClient from '@/structs/client';
 import Command from '@/structs/command';
 import type Context from '@/structs/context';
@@ -28,7 +30,7 @@ export default class EvalCommand extends Command {
 				},
 				{
 					name: 'ephemeral',
-					description: 'Wheter the result is ephemeral or not',
+					description: 'Whether the result is ephemeral or not',
 					type: ApplicationCommandOptionType.Boolean,
 					required: false,
 				},
@@ -42,7 +44,7 @@ export default class EvalCommand extends Command {
 				.slice(0, 3000)
 				.replace(/`/g, `\`${String.fromCharCode(8203)}`)
 				.replace(/@/g, `@${String.fromCharCode(8203)}`)
-				.replace(new RegExp(process.env.DISCORD_CLIENT_TOKEN, 'gi'), '****');
+				.replace(new RegExp(Core.getEnvOrThrow('CLIENT_TOKEN'), 'gi'), '****');
 		}
 
 		return text;

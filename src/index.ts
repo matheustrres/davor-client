@@ -1,9 +1,11 @@
 import './utils/module-alias';
 
-import DavorClient from './structs/client';
+import { Core } from '@/core';
+
+import DavorClient from '@/structs/client';
 
 export default (async () => {
 	const client = new DavorClient();
 
-	await client.login(process.env.DISCORD_CLIENT_TOKEN);
+	await client.login(Core.getEnvOrThrow('CLIENT_TOKEN'));
 })();

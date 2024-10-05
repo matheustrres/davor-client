@@ -28,6 +28,7 @@
 					"index",
 					"sibling",
 					"parent",
+					"/^@/core/",
 					"/^@/cmds/",
 					"/^@/events/",
 					"/^@/structs/",

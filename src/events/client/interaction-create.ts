@@ -5,6 +5,8 @@ import {
 	type InteractionResponse,
 } from 'discord.js';
 
+import { Core } from '@/core';
+
 import DavorClient from '@/structs/client';
 import Context from '@/structs/context';
 import DiscordEvent from '@/structs/event';
@@ -16,22 +18,20 @@ export default class InteractionCreateEvent extends DiscordEvent {
 		super(client, 'interactionCreate');
 	}
 
-	async run(
-		interaction: Interaction,
-	): Promise<InteractionResponse<boolean> | undefined> {
-		if (interaction.isChatInputCommand()) {
-			const cmd = this.client.commands.find(
-				(c) => c.name === interaction.commandName,
+	async run(i: Interaction): Promise<InteractionResponse<boolean> | undefined> {
+		if (i.isChatInputCommand()) {
+			const command = this.client.commands.find(
+				(c) => c.name === i.commandName,
 			);
 
-			if (cmd) {
-				const { category, permissions } = cmd;
+			if (command) {
+				const { category, permissions } = command;
 
 				if (
 					category === 'Dev' &&
-					interaction.user.id !== process.env.DISCORD_CLIENT_OWNER_ID
+					i.user.id !== Core.getEnvOrThrow('CLIENT_OWNER_ID')
 				) {
-					return interaction.reply({
+					return i.reply({
 						ephemeral: true,
 						content: 'This command is restricted.',
 					});
@@ -39,13 +39,13 @@ export default class InteractionCreateEvent extends DiscordEvent {
 
 				if (permissions?.botPerms?.length) {
 					const missingPermissions = this.#getMissingPerms<DavorClient>(
-						interaction,
+						i,
 						this.client,
 						permissions.botPerms,
 					);
 
 					if (missingPermissions) {
-						return interaction.reply({
+						return i.reply({
 							ephemeral: true,
 							content: `I need the following permissions to run this command: \n\`${missingPermissions}\`.`,
 						});
@@ -54,22 +54,22 @@ export default class InteractionCreateEvent extends DiscordEvent {
 
 				if (permissions?.memberPerms?.length) {
 					const missingPermissions = this.#getMissingPerms<User>(
-						interaction,
-						interaction.user,
+						i,
+						i.user,
 						permissions.memberPerms,
 					);
 
 					if (missingPermissions) {
-						return interaction.reply({
+						return i.reply({
 							ephemeral: true,
 							content: `You need the following permissions to run this command: \n\`${permissions}\`.`,
 						});
 					}
 				}
 
-				const context = new Context(interaction);
+				const context = new Context(i);
 
-				cmd.run(context);
+				command.run(context);
 			}
 		}
 
@@ -79,17 +79,17 @@ export default class InteractionCreateEvent extends DiscordEvent {
 	#getMissingPerms<TUser = DavorClient | User>(
 		i: Interaction,
 		u: TUser,
-		cmdPermissions: PermissionResolvable[],
+		permissions: PermissionResolvable[],
 	): string | undefined {
 		if (u instanceof DavorClient) {
-			if (!i.appPermissions?.has(cmdPermissions)) {
-				return resolvePermissions(cmdPermissions);
+			if (!i.appPermissions?.has(permissions)) {
+				return resolvePermissions(permissions);
 			}
 		}
 
 		if (u instanceof User) {
-			if (!i.memberPermissions?.has(cmdPermissions)) {
-				return resolvePermissions(cmdPermissions);
+			if (!i.memberPermissions?.has(permissions)) {
+				return resolvePermissions(permissions);
 			}
 		}
 
