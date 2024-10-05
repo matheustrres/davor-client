@@ -5,7 +5,7 @@ import { Core } from '@/core';
 import { Logger } from '@/structs/logger';
 
 export class Database {
-	static readonly logger = new Logger('DATABASE');
+	static readonly logger = new Logger(Database.name);
 
 	static #instance: Mongoose | null = null;
 
